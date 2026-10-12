@@ -5,7 +5,12 @@ from pages.navbar_component import NavbarComponent
 from pages.login_modal_page import LoginModalPage
 from pages.portfolio_page import PortfolioPage
 
-UI_BASE_URL = os.getenv("UI_BASE_URL", "http://investapp-frontend.s3-website-us-east-1.amazonaws.com")
+
+UI_BASE_URL = os.getenv(
+    "UI_BASE_URL",
+    "http://investapp-frontend.s3-website-us-east-1.amazonaws.com",
+)
+
 TEST_USER = os.getenv("TEST_USER", "userXX")
 TEST_PASSWORD = os.getenv("TEST_PASSWORD", "password")
 
@@ -31,7 +36,12 @@ def portfolio_page(page: Page) -> PortfolioPage:
 
 
 @pytest.fixture
-def logged_page(page: Page, base_url: str, navbar: NavbarComponent, login_modal: LoginModalPage) -> Page:
+def logged_page(
+    page: Page,
+    base_url: str,
+    navbar: NavbarComponent,
+    login_modal: LoginModalPage,
+) -> Page:
     page.goto(base_url)
     navbar.clicar_entrar()
     expect(login_modal.container_modal).to_be_visible()

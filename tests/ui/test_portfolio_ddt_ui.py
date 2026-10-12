@@ -7,6 +7,7 @@ from playwright.sync_api import Page, expect
 from pages.navbar_component import NavbarComponent
 from pages.portfolio_page import PortfolioPage
 
+
 def carregar_dados_investimentos_csv():
     caminho = (
         Path(__file__).resolve().parent.parent
@@ -35,6 +36,7 @@ def carregar_dados_investimentos_csv():
             )
 
     return cenarios
+
 
 @pytest.mark.parametrize(
     "asset, amount, price, days, planned, deve_sucesso",

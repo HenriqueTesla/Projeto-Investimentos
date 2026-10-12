@@ -8,7 +8,13 @@ TEST_USER = os.getenv("TEST_USER", "userXX")
 TEST_PASSWORD = os.getenv("TEST_PASSWORD", "password")
 
 
-def test_abertura_e_fechamento_modal_login(page: Page, base_url: str, navbar: NavbarComponent, login_modal: LoginModalPage):
+def test_abertura_e_fechamento_modal_login(
+    page: Page,
+    base_url: str,
+    navbar: NavbarComponent,
+    login_modal: LoginModalPage
+):
+
     page.goto(base_url)
 
     navbar.clicar_entrar()
@@ -18,7 +24,13 @@ def test_abertura_e_fechamento_modal_login(page: Page, base_url: str, navbar: Na
     expect(login_modal.container_modal).not_to_be_visible()
 
 
-def test_login_ui_com_sucesso(page: Page, base_url: str, navbar: NavbarComponent, login_modal: LoginModalPage):
+def test_login_ui_com_sucesso(
+    page: Page,
+    base_url: str,
+    navbar: NavbarComponent,
+    login_modal: LoginModalPage
+):
+
     page.goto(base_url)
 
     navbar.clicar_entrar()
@@ -28,7 +40,13 @@ def test_login_ui_com_sucesso(page: Page, base_url: str, navbar: NavbarComponent
     expect(navbar.link_carteira).to_be_visible()
 
 
-def test_login_ui_credenciais_invalidas(page: Page, base_url: str, navbar: NavbarComponent, login_modal: LoginModalPage):
+def test_login_ui_credenciais_invalidas(
+    page: Page,
+    base_url: str,
+    navbar: NavbarComponent,
+    login_modal: LoginModalPage
+):
+
     page.goto(base_url)
 
     navbar.clicar_entrar()
