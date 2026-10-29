@@ -49,7 +49,15 @@ class PortfolioPage(BasePage):
         try:
             self.select_ativo.select_option(value=ativo)
         except Exception:
-            self.select_ativo.select_option(label=ativo)
+            try:
+                self.select_ativo.select_option(label=ativo)
+            except Exception:
+                if "Petrobras" in ativo:
+                    self.select_ativo.select_option(
+                        label="Ações Petrobrás (14.00% a.a.)"
+                        )
+                else:
+                    raise
 
         self.input_quantidade.fill(quantidade)
         self.input_preco_compra.fill(preco)
@@ -60,14 +68,17 @@ class PortfolioPage(BasePage):
     def obter_linha_por_ativo_e_prazo(
         self,
         nome_ativo: str,
-        dias_inv: str,
-        dias_plan: str,
+        dias_inv: str | int,
+        dias_plan: str | int,
     ) -> Locator:
-        texto_prazo = f"{dias_inv} / {dias_plan} dias"
+        texto_prazo = (
+            f"{str(dias_inv).strip()} / "
+            f"{str(dias_plan).strip()} dias"
+        )
 
         return (
             self.linhas_tabela_carteira
-            .filter(has_text=nome_ativo)
+            .filter(has_text=str(nome_ativo).strip())
             .filter(has_text=texto_prazo)
             .first
         )

@@ -65,7 +65,11 @@ def test_cadastro_aporte_ddt_pom(
     )
 
     if deve_sucesso:
-        linha = portfolio_page.obter_linha_por_ativo(asset)
+        linha = portfolio_page.obter_linha_por_ativo_e_prazo(
+            nome_ativo=asset,
+            dias_inv=days,
+            dias_plan=planned,
+        )
         expect(linha).to_be_visible(timeout=5000)
     else:
         expect(portfolio_page.alerta_erro).to_be_visible()
