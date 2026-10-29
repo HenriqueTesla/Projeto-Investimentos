@@ -25,7 +25,6 @@ class PortfolioPage(BasePage):
         self.botao_adicionar = page.locator(
             "[data-testid='btn-add-asset']"
         )
-
         self.card_patrimonio_total = page.locator(
             "[data-testid='summary-current-val']"
         )
@@ -47,17 +46,14 @@ class PortfolioPage(BasePage):
         self.select_ativo.wait_for(state="visible")
 
         try:
-            self.select_ativo.select_option(value=ativo)
+            self.select_ativo.select_option(label=ativo)
         except Exception:
-            try:
-                self.select_ativo.select_option(label=ativo)
-            except Exception:
-                if "Petrobras" in ativo:
-                    self.select_ativo.select_option(
-                        label="Ações Petrobrás (14.00% a.a.)"
-                        )
-                else:
-                    raise
+            if "Petrobras" in ativo:
+                self.select_ativo.select_option(
+                    label="Ações Petrobrás (14.00% a.a.)"
+                )
+            else:
+                self.select_ativo.select_option(value=ativo)
 
         self.input_quantidade.fill(quantidade)
         self.input_preco_compra.fill(preco)
@@ -78,7 +74,7 @@ class PortfolioPage(BasePage):
 
         return (
             self.linhas_tabela_carteira
-            .filter(has_text=str(nome_ativo).strip())
+            .filter(has_text=nome_ativo.strip())
             .filter(has_text=texto_prazo)
             .first
         )

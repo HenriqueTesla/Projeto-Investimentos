@@ -41,10 +41,21 @@ def test_remover_ativo_recalcula_patrimonio(
     total_inicial = portfolio_page.total_de_ativos_listados()
 
     if total_inicial > 0:
+        patrimonio_inicial = (
+            portfolio_page.card_patrimonio_total.inner_text().strip()
+        )
+
         portfolio_page.excluir_primeiro_ativo()
         expect(
             portfolio_page.linhas_tabela_carteira
         ).to_have_count(
             total_inicial - 1,
+            timeout=5000,
+        )
+
+        expect(
+            portfolio_page.card_patrimonio_total
+        ).not_to_have_text(
+            patrimonio_inicial,
             timeout=5000,
         )
