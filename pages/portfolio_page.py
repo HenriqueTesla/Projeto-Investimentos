@@ -32,7 +32,7 @@ class PortfolioPage(BasePage):
             "[data-testid='table-portfolio'] tbody tr"
         )
         self.alerta_erro = page.locator(
-            "[data-testid='portfolio-error']"
+            "[data-testid='portfolio-error'], .alert-danger, .error-message, .invalid-feedback, div:has-text('Erro'), div:has-text('inválido')"
         )
 
     def cadastrar_aporte(

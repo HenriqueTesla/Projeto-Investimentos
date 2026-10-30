@@ -1,3 +1,4 @@
+import pytest
 from playwright.sync_api import Page, expect
 from pages.navbar_component import NavbarComponent
 from pages.asset_manager_page import AssetManagerPage
@@ -33,18 +34,17 @@ def test_visualizar_tabela_de_taxas(
         print("\nRespostas da API:")
         for resposta in respostas_api:
             print(
-                f"HTTP {resposta['status']} - "
-                f"{resposta['url']}"
+                f"HTTP {resposta['status']} {resposta['url']}"
             )
 
         print(
             "\nHTML da tabela:",
-            asset_page.tabela_taxas.inner_html()
+            asset_page.obter_html_tabela()
         )
 
         print(
             "\nTexto da página:",
-            logged_page.locator("body").inner_text()[:3000]
+            asset_page.obter_diagnostico_pagina()
         )
 
         raise

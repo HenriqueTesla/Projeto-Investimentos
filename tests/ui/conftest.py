@@ -4,6 +4,8 @@ from playwright.sync_api import Page, expect
 from pages.navbar_component import NavbarComponent
 from pages.login_modal_page import LoginModalPage
 from pages.portfolio_page import PortfolioPage
+from pages.yield_simulator_page import YieldSimulatorPage
+from pages.tax_optimizer_page import TaxOptimizerPage
 
 
 UI_BASE_URL = os.getenv(
@@ -33,6 +35,16 @@ def login_modal(page: Page) -> LoginModalPage:
 @pytest.fixture
 def portfolio_page(page: Page) -> PortfolioPage:
     return PortfolioPage(page)
+
+
+@pytest.fixture
+def yield_page(page: Page) -> YieldSimulatorPage:
+    return YieldSimulatorPage(page)
+
+
+@pytest.fixture
+def tax_page(page: Page) -> TaxOptimizerPage:
+    return TaxOptimizerPage(page)
 
 
 @pytest.fixture
