@@ -16,12 +16,14 @@ def carregar_dados_investimentos_csv():
     )
 
     if not caminho.exists():
-        raise FileNotFoundError(f"CSV não localizado em: {caminho}")
+        raise FileNotFoundError(
+            f"CSV não localizado em: {caminho}"
+        )
 
     cenarios = []
 
-    with open(caminho, mode="r", encoding="utf-8") as f:
-        leitor = csv.DictReader(f)
+    with open(caminho, mode="r", encoding="utf-8") as arquivo:
+        leitor = csv.DictReader(arquivo)
 
         for linha in leitor:
             cenarios.append(
@@ -72,4 +74,6 @@ def test_cadastro_aporte_ddt_pom(
         )
         expect(linha).to_be_visible(timeout=5000)
     else:
-        expect(portfolio_page.alerta_erro).to_be_visible()
+        expect(
+            portfolio_page.alerta_erro
+        ).to_be_visible(timeout=5000)

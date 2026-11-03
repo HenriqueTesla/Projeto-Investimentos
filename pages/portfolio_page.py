@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, Locator
+from playwright.sync_api import Page, Locator, expect
 from pages.base_page import BasePage
 
 
@@ -32,7 +32,9 @@ class PortfolioPage(BasePage):
             "[data-testid='table-portfolio'] tbody tr"
         )
         self.alerta_erro = page.locator(
-            "[data-testid='portfolio-error'], .alert-danger, .error-message, .invalid-feedback, div:has-text('Erro'), div:has-text('inválido')"
+            "[data-testid='portfolio-error'], "
+            ".alert-danger, .error-message, .invalid-feedback, "
+            "div:has-text('Erro'), div:has-text('inválido')"
         )
 
     def cadastrar_aporte(
@@ -111,3 +113,21 @@ class PortfolioPage(BasePage):
             return 0
 
         return self.linhas_tabela_carteira.count()
+
+    def tentar_cadastrar_formulario_vazio(self):
+        self.botao_adicionar.click()
+
+    def campo_quantidade_desabilitado(self) -> bool:
+        return self.input_quantidade.is_disabled()
+
+    def campo_preco_desabilitado(self) -> bool:
+        return self.input_preco_compra.is_disabled()
+
+    def verificar_imagens_com_alt(self):
+        imagens = self.page.locator("img")
+        total = imagens.count()
+
+        for i in range(total):
+            imagem = imagens.nth(i)
+
+            expect(imagem).to_have_attribute("alt")
