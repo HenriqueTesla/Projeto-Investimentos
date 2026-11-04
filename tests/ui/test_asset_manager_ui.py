@@ -63,6 +63,9 @@ def test_alterar_taxa_anual(
 
     expect(asset_page.tabela_taxas).to_be_visible()
 
+    novo_valor = "5.50"
+    asset_page.alterar_taxa_primeiro_ativo(novo_valor)
+
 
 def test_persistencia_taxa_apos_recarregar(
     logged_page: Page,
@@ -74,3 +77,14 @@ def test_persistencia_taxa_apos_recarregar(
     asset_page.aguardar_tabela()
 
     expect(asset_page.tabela_taxas).to_be_visible()
+
+    novo_valor = "7.25"
+    asset_page.alterar_taxa_primeiro_ativo(novo_valor)
+
+    logged_page.reload()
+
+    navbar.navegar_para_gerenciar_taxas()
+    asset_page.aguardar_tabela()
+
+    campo_primeiro_ativo = asset_page.linhas_taxas.first.get_by_role("textbox")
+    expect(campo_primeiro_ativo).to_have_value(novo_valor)

@@ -50,3 +50,18 @@ class AssetManagerPage(BasePage):
         self.obter_botao_salvar(
             "Poupança"
         ).click()
+
+    def alterar_taxa_primeiro_ativo(self, novo_valor: str):
+        primeira_linha = self.linhas_taxas.first
+        campo = primeira_linha.get_by_role("textbox")
+        campo.fill(novo_valor)
+
+        botao = primeira_linha.get_by_role("button", name="Salvar Alteração")
+        botao.click()
+
+    def alterar_taxa_por_ativo(self, nome_ativo: str, novo_valor: str):
+        campo = self.obter_campo_taxa(nome_ativo)
+        campo.fill(novo_valor)
+
+        botao = self.obter_botao_salvar(nome_ativo)
+        botao.click()

@@ -1,9 +1,7 @@
 import csv
-from pathlib import Path
-
 import pytest
+from pathlib import Path
 from playwright.sync_api import Page, expect
-
 from pages.navbar_component import NavbarComponent
 from pages.portfolio_page import PortfolioPage
 
