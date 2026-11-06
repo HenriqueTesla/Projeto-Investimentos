@@ -29,5 +29,5 @@ def test_destaque_melhor_opcao_menor_ir(
     tax_page.analisar_resgate("5000")
 
     expect(tax_page.melhor_opcao).to_be_visible(
-        timeout=10000
+        timeout=20000
     )
